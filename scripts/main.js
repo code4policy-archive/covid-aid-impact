@@ -19,8 +19,7 @@ window.onclick = function(event) {
 
 
 $(document).ready(function(){
-  // Activate Carousel
-  $("#myCarousel").carousel();
+
     
   // Enable Carousel Indicators
   $(".item1").click(function(){
