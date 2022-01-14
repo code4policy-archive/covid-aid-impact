@@ -1,1 +1,1 @@
-# covid-aid-impact
+This is a website that was created for a class project. The goal of the project was to build a website that helps international development students, journalists and other researchers understand how Covid influenced big trends in international aid flow. By using big data source from the OECD we built an interactive map for a data-driven analysys. We also suggest some examples for how this data can be used so beginners can see the implications of this data even if they are not experts. 
