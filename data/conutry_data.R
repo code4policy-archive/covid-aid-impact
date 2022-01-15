@@ -16,7 +16,7 @@ country_codes <- read_csv(file = "/Users/nomko/Development/covid-aid-impact/data
 
 currencies_long <- gather(currencies, currency, values, 'DKK':'USD', factor_key=TRUE)
 
-currency_clean <-  merge(recent_data, currencies_long, by.x = c("year_start", "default_currency"), by.y=c("year", "currency")) %>% 
+currency_clean <-  merge(recent_data, currencies_long, by.x = c("year_start", "currency"), by.y=c("year", "currency")) %>% 
   mutate(commitment_in_usd = total_Commitment*values, 
          disbursement_in_usd = total_Disbursement*values)
 
