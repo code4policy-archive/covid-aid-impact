@@ -16,7 +16,7 @@ var colorScheme = d3.schemeRdBu[8];
 colorScheme.unshift("#eee")
 var colorScale = d3.scaleThreshold()
     .domain([-100, -75, -50, -25, -10, 10, 25, 50, 75, 100])
-    .range(['#d73027','#f46d43','#fdae61','#fee08b','#ffffbf','#d9ef8b','#a6d96a','#66bd63','#1a9850']);
+    .range(['#d73027','#f46d43','#fdae61','#fee08b','#ffffbf','#d9ef8b','#a6d96a','#66bd63','#1a9850', '#d3d3d3']);
 
 // Legend
 var g = svg.append("g")
@@ -27,7 +27,7 @@ g.append("text")
     .attr("x", 0)
     .attr("y", -6)
     .text("Change in the percentage of aid projects");
-var labels = ['-100% to -75%', '-75% to 50%', '-50% to 25%', '-25% to -10%','-10% to 10%', '10% to 25%', '25% to 50%', '50% to 75%', '75% to 100%'];
+var labels = ['-100% to -75%', '-75% to 50%', '-50% to 25%', '-25% to -10%','-10% to 10%', '10% to 25%', '25% to 50%', '50% to 75%', '75% to 100%', 'No aid projects'];
 var legend = d3.legendColor(['#66bd63'])
     .labels(function (d) { return labels[d.i]; })
     .shapePadding(4)
@@ -37,7 +37,7 @@ svg.select(".legendThreshold")
 
 // Load external data and boot
 d3.queue()
-    .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
+    .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
     .defer(d3.csv, "data/country_projects.csv", function(d) { data.set(d.Alpha_3_code, +d.change_from_average); })
     .await(ready);
 
@@ -52,7 +52,7 @@ function ready(error, topo) {
         .enter().append("path")
             .attr("fill", function (d){
                 // Pull data for this country
-                d.change_from_average = data.get(d.id) || 0;
+                d.change_from_average = data.get(d.id) || "Not Available";
                 // Set the color
                 return colorScale(d.change_from_average);
             })
