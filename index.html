@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="styles/style.css" rel="stylesheet">
+  <link href="styles/map.css" rel="stylesheet">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,6 +16,11 @@
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+  <script src="https://d3js.org/queue.v1.min.js"></script>
+  <script src="https://d3js.org/topojson.v1.min.js"></script>
+  <script src="scripts/d3-tip.js"></script>
+  <script src='https://unpkg.com/simple-statistics@2.0.0/dist/simple-statistics.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js'></script>
 </head>
 
 <body>
@@ -140,46 +146,46 @@
 
   <!-- The About Us Section -->
 <div class="w3-black" id="aboutus">
-<div class="w3-container w3-content w3-padding-64" style="max-width:800px">
-<h2 class="w3-wide w3-center">ABOUT US</h2>
-<div class="row">
-  <div class="column">
-    <div class="card">
-      <img src="images/Nomko.jpeg" alt="Nomko" style="width:100%">
-      <div class="container">
-        <h2>Nomko Baatar</h2>
-        <p class="title">Nomko is an MPA-ID student at the Harvard Kennedy School focusing on data and technology in the public sector. Prior to that, she worked at IBM as a managing consultant in the cognitive and analytics field and as a pro-bono consultant for NGOs and government organizations.</p>
-        <a href="https://www.linkedin.com/in/nbaatar" class="fa fa-linkedin w3-hover-opacity fa-lg"></a>
-        <a href="mailto:nbaatar@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a>
-      </div>
-    </div>
-  </div>
-
-  <div class="column">
-    <div class="card">
-      <img src="images/Pranav.jpeg" alt="Pranav" style="width:100%">
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+  <h2 class="w3-wide w3-center">ABOUT US</h2>
+  <div class="row">
+    <div class="column">
+      <div class="card">
+        <img src="images/Nomko.jpeg" alt="Nomko" style="width:100%">
         <div class="container">
-          <h2>Pranav Bhargava</h2>
-          <p class="title"> Pranav is an MPA-ID student at the Harvard Kennedy School. Prior to that, he worked at Pratham, an educational non-profit. There, he built data systems for State Governments in India and Africato that improved strategic decision making on educational focus areas like Literacy and Numeracy.</p>
-          <a href="https://linkedin.com/in/pranavbhar" class="fa fa-linkedin w3-hover-opacity fa-lg"></a>
-          <a href="mailto:pranavbhargava@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a>
+          <h2>Nomko Baatar</h2>
+          <p class="title">Nomko is an MPA-ID student at the Harvard Kennedy School focusing on data and technology in the public sector. Prior to that, she worked at IBM as a managing consultant in the cognitive and analytics field and as a pro-bono consultant for NGOs and government organizations.</p>
+          <a href="https://www.linkedin.com/in/nbaatar" class="fa fa-linkedin w3-hover-opacity fa-lg"></a>
+          <a href="mailto:nbaatar@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a>
         </div>
+      </div>
     </div>
-  </div>
- 
-  <div class="column">
-    <div class="card">
-      <img src="images/Liat.jpg" alt="Liat" style="width:100%">
-      <div class="container">
-        <h2>Liat Schlesinger</h2>
-        <p class="title">  Liat is a mid-career student at the MPA program at the Harvard Kennedy School. Prior to that she was an Executive Director of a research institute in Israel and an investigative journalist.</p>
-        <a href="https://www.linkedin.com/in/liat-schlesinger-636a3267/" class="fa fa-linkedin w3-hover-opacity fa-lg"></a>
-        <a href="mailto:liat_schlesinger@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a>
+
+    <div class="column">
+      <div class="card">
+        <img src="images/Pranav.jpeg" alt="Pranav" style="width:100%">
+          <div class="container">
+            <h2>Pranav Bhargava</h2>
+            <p class="title"> Pranav is an MPA-ID student at the Harvard Kennedy School. Prior to that, he worked at Pratham, an educational non-profit. There, he built data systems for State Governments in India and Africato that improved strategic decision making on educational focus areas like Literacy and Numeracy.</p>
+            <a href="https://linkedin.com/in/pranavbhar" class="fa fa-linkedin w3-hover-opacity fa-lg"></a>
+            <a href="mailto:pranavbhargava@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a>
+          </div>
+      </div>
+    </div>
+   
+    <div class="column">
+      <div class="card">
+        <img src="images/Liat.jpg" alt="Liat" style="width:100%">
+        <div class="container">
+          <h2>Liat Schlesinger</h2>
+          <p class="title">  Liat is a mid-career student at the MPA program at the Harvard Kennedy School. Prior to that she was an Executive Director of a research institute in Israel and an investigative journalist.</p>
+          <a href="https://www.linkedin.com/in/liat-schlesinger-636a3267/" class="fa fa-linkedin w3-hover-opacity fa-lg"></a>
+          <a href="mailto:liat_schlesinger@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</div>
+  </div>
 </div>
 
 <!-- End Page Content -->
