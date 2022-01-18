@@ -1,0 +1,68 @@
+#Loading libraries
+library(tidyverse)
+library(readr)
+library(data.table)
+
+#Loading datasets
+df <- read_csv("~/Documents/Harvard/January 2022/DPI 691M/Project/Analysis/iati_activity_data.csv")
+curr_df <- read_csv("~/Development/covid-aid-impact/data/FRB_H10.csv")
+sec_df <- read_csv("~/Development/covid-aid-impact/data/iati_sectoral_bucketing.csv")
+
+#Data cleaning tasks for IATI activity dataset
+
+  #Filtering only those observations where the disbursement is not zero as we 
+  #want to track only disbursement activities for now
+  df <- df%>%filter(`total-Disbursement` != 0)
+  
+  #Removing variables which are not relevant to the analysis
+  df <- df%>%select(-c("hierarchy","last-updated-datetime", "default-language", "title", "description",
+                       "activity-status-code", "default-finance-type-code", "default-flow-type-code",
+                       "default-tied-status-code", "total-Expenditure","total-Incoming Funds",
+                       "total-Interest Repayment", "total-Loan Repayment", "total-Reimbursement", "end-actual",
+                       "recipient-region-code", "recipient-region-percentage", "collaboration-type-code"))%>%
+    select(-contains(c("reporting", "Accountable","Extending", "planned", "vocabulary")))
+  
+  #creating year start date
+  df <- df%>%mutate(`year-start` = as.numeric(format(`start-actual`, format = "%Y")))
+  
+  #keeping countries with only 100% funds allocation for both sectors and recipient countries
+  df <- df%>%filter(`sector-percentage` == 100 | is.na(`sector-percentage`) == TRUE)%>%
+    mutate(`sector-percentage` = 100)
+  
+  df <- df%>%filter(`recipient-country-percentage` == 100 | is.na(`recipient-country-percentage`) == TRUE)%>%
+    mutate(`recipient-country-percentage` = 100)
+  
+  #removing observations which are non-sensical or not easy to evaluate
+  df <- df%>%
+    filter(`year-start` != 2050 & is.na(`year-start`) != TRUE)%>%
+    filter(is.na(currency) != TRUE & currency != "!Mixed currency")%>%
+    filter(is.na(`participating-org (Funding)`) != TRUE & `participating-org (Funding)` != "-")%>%
+    filter(`year-start` != 2021)
+    
+
+#Data transformation
+  
+  #Pivoting the data from a wide form to a long form 
+  curr_df <- curr_df%>%pivot_longer(cols = DKK:JPY, names_to = "currency")
+  
+  #Merging currency conversion data with the IATI activity data for standardized currency
+  df <- df%>%
+    left_join(curr_df, by = c("year-start"= "year","currency"))%>%
+    mutate(value  = if_else(is.na(value) == TRUE & currency == "USD",1,value))
+  
+  #Standardizing the currency across all activities by converting local currencies to USD
+  df <- df%>%mutate(`total-Disbursement-usd` = round(as.numeric(`total-Disbursement`)*value,2))
+  
+  # Creating broad buckets for sectors
+  sec_df <- sec_df%>%rename(sectoral_bucket = `sectoral bucket`)
+  
+  df <- df%>%
+    left_join(sec_df, by = "sector")%>%
+    mutate(sectoral_bucket = if_else(is.na(sectoral_bucket) == TRUE,"Not specified",sectoral_bucket))
+
+
+fwrite(df, file = "~/Development/covid-aid-impact/data/df_tab_viz.csv")
+
+
+
+                 

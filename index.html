@@ -5,16 +5,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="styles/style.css" rel="stylesheet">
+  <link href="styles/map.css" rel="stylesheet">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+  <script src="https://d3js.org/queue.v1.min.js"></script>
+  <script src="https://d3js.org/topojson.v1.min.js"></script>
+  <script src="scripts/d3-tip.js"></script>
+  <script src='https://unpkg.com/simple-statistics@2.0.0/dist/simple-statistics.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js'></script>
 </head>
 
 <body>
@@ -47,7 +54,7 @@
  <div class="w3-black" id="home">
    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
     <h2 class="w3-wide w3-center">Assessing The Impact of COVID on International Aid Flows </h2>
-    <h3 class="w3-opacity w3-center">Covid has brought international aid to an all time high but where is the money going and how is affecting other sectors of investment? This data driven map will allow you to search and compare sectors of investment and see how they change over time and how Covid has reshaped the international aid map.</h3>
+    <h3 class="w3-opacity w3-center">Covid has reshuffled the international aid flows. But where is the money going? How is it affecting development projects and traditional sectors of investment? This data-driven map will allow you to study aid flow trends before and after Covid and measure its impact on different stakeholders and investment sectors.</h3>
    </div>
   </div>
 
@@ -57,7 +64,8 @@
   <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="visualizations">
     <h2 class="w3-wide" >AID FLOWS</h2>
     <!--<p class="w3-opacity"><i>Lorem Ipsum</i></p>-->
-    <p class="w3-justify"> The below dashboard visualizes the aid flows from two of the biggest aid providers - United States Federal Government and Asian Development Bank (ADB). These two institutions account for over two-thirds of all aid flows made in USD in the last decade from 2010-2020. Take a look below to see how international aid across the world from these two institutions has changed over time. You can also explore how aid to a recipient country has changed in light of COVID and which sectors has the aid in 2020 gone to. 
+    <p class="w3-justify"> The below dashboard visualizes the development aid flows from 2010-2020 from organizations who reported their aid activities (disbursement/repayment etc.) to International Aid Transparency Initiative (IATI). Use the below dashboard to know the amount of aid recieved by recipient countries/aid disbursed from donating organisations/sectoral aid allocation during the last decade. You can also use the dashboard to see how aid to a recipient country/from a donating organisation has changed in light of COVID and which sectors have seen their aid change in 2020.  
+
     Tap the bottom right corner of the dashboard to view it full-screen. </p>
 
 
@@ -93,36 +101,30 @@
   <div  class='w3-light-grey' id="impact">
     <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
       <h2 class="w3-wide w3-center">TRENDS</h2>
-      <h4 class="w3-opacity w3-center">Most countries have seen a decrease in the number of aid projects in 2020 when compared to the usual number in the previous years </h4><br>
-      <p class="w3-justify"> More than 70% of countries that have received aid in 2019 have seen a decrease in aid projects in 2020. While this may not directly be caused by the COVID pandemic, the significantly high number of countries that have seen this trend is undeniable. There has also been a similar trend in the amount of commitments and disbursements given to countries. </p>
+      <h4 class="w3-opacity w3-center">Most countries have seen a decrease in the number of aid projects in 2020 compared to the usual number in the previous years </h4><br>
+      <p class="w3-justify"> More than 70% of countries that have received aid in 2019 have seen a decrease in development projects in 2020. While the COVID pandemic may not directly cause this, the significantly high number of countries that have seen this trend is undeniable. There has also been a similar trend in the number of commitments and disbursements given to governments. </p>
       <svg id="my_dataviz" width="800" height="400"></svg>
  
         <p>Data from the  <a href="https://datastore.codeforiati.org/" target="_blank">IATI database</a>. D3 visualization from <a href="http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328"> here.</a></p>
       <script src="scripts/map.js">
       </script>
-    </div>
-    <!-- The Country level -->
-    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
-      <h4 class="w3-opacity w3-center">For many countries depending on aid, 2020 was incredibly challenging</h4><br>
-      <p class="w3-justify">Sierra Leone, for example, just recently suffered a massive cut in international aid. The country hoped to retrieve some of it back, but Covid led to an even further reduction in international aid</p>
+      <br>
+      <br>
+            <h4 class="w3-opacity w3-center">On the country level, it can reverse or continue a trend, both leading to a set back in development and impacting lives</h4><br>
+            <h4 class="w3-opacity w3-center">For many countries depending on aid, 2020 was incredibly challenging</h4><br>      
+      <p class="w3-justify"> Sierra Leone, for example, just recently suffered a massive cut in international aid. The country hoped to retrieve some of it back, but Covid led to an even further reduction in international aid</p>
       <img src="images/SierraLeonefinal.png" alt="Sierra" style="width:100%">
     </div>
   </div>
 
-  
-
-      
- 
-
-
   <!-- The Resources Section -->
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="resources">
+  <div class="w3-container w3-content" style="max-width:800px" id="resources">
     <h2 class="w3-wide w3-center">DATA SOURCES</h2>
     <p class="w3-opacity w3-center"><i></i></p><br>
     <p class="w3-justify">
 
     <!-- 4 heading levels: -->
-      <h4 class="w3-center">Finding the right data source to work with can be hard. These are our top favourites we selected for their credibility, volume and interactivity.</h4>
+      <h4 class="w3-center">Finding the right data source to work with can be tricky. For experts and beginner researchers alike, we recommend these selected top favorites for their credibility, volume, and interactivity.</h4>
       
       <ul>
         <!-- Data source 1: -->
@@ -149,9 +151,8 @@
       </ul>
 </div>
 
-
   <!-- The About Us Section -->
-<div class="w3-black" id="aboutus">
+<div class="w3-black">
 <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
 <h2 class="w3-wide w3-center">ABOUT US</h2>
 <div class="row">
@@ -160,38 +161,43 @@
       <img src="images/Nomko.jpeg" alt="Nomko" style="width:100%">
       <div class="container">
         <h2>Nomko Baatar</h2>
-        <p class="title">Nomko is an MPA-ID student at the Harvard Kennedy School focusing on data and technology in the public sector. Prior to that, she worked at IBM as a managing consultant in the cognitive and analytics field and as a pro-bono consultant for NGOs and government organizations.</p>
+        <p class="title col-sm-3">Nomko is an MPA-ID student at the Harvard Kennedy School focusing on data and technology in the public sector. Prior to that, she worked at IBM as a managing consultant in the cognitive and analytics field and as a pro-bono consultant for NGOs and government organizations.
+        <br></br> 
         <a href="https://www.linkedin.com/in/nbaatar" class="fa fa-linkedin w3-hover-opacity fa-lg"></a>
         <a href="mailto:nbaatar@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a>
+      </p>
       </div>
     </div>
-  </div>
-
-  <div class="column">
-    <div class="card">
-      <img src="images/Pranav.jpeg" alt="Pranav" style="width:100%">
-        <div class="container">
-          <h2>Pranav Bhargava</h2>
-          <p class="title"> Pranav is an MPA-ID student at the Harvard Kennedy School. Prior to that, he worked at Pratham, an educational non-profit. There, he built data systems for State Governments in India and Africato that improved strategic decision making on educational focus areas like Literacy and Numeracy.</p>
-          <a href="https://linkedin.com/in/pranavbhar" class="fa fa-linkedin w3-hover-opacity fa-lg"></a>
-          <a href="mailto:pranavbhargava@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a>
-        </div>
     </div>
-  </div>
- 
+
+
+    <div class="column">
+      <div class="card">
+        <img src="images/Pranav.jpeg" alt="Pranav" style="width:100%">
+          <div class="container">
+            <h2>Pranav Bhargava</h2>
+            <p class="title col-sm-3"> Pranav is an MPA-ID student at the Harvard Kennedy School. Prior to that, he worked at Pratham, an educational non-profit. There, he built data systems for State Governments in India and Africato that improved strategic decision making on educational focus areas like Literacy and Numeracy.
+            <br>
+            <br>
+            <a href="https://linkedin.com/in/pranavbhar" class="fa fa-linkedin w3-hover-opacity fa-lg"></a>
+            <a href="mailto:pranavbhargava@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a></p>
+          </div>
+      </div>
+    </div>
+   
   <div class="column">
     <div class="card">
       <img src="images/Liat.jpg" alt="Liat" style="width:100%">
       <div class="container">
         <h2>Liat Schlesinger</h2>
-        <p class="title">  Liat is a mid-career student at the MPA program at the Harvard Kennedy School. Prior to that she was an Executive Director of a research institute in Israel and an investigative journalist.</p>
+        <p class="title col-sm-3">  Liat is a mid-career student at the MPA program at the Harvard Kennedy School. Prior to that she was an Executive Director of a research institute in Israel and an investigative journalist. 
+        <br></br> 
         <a href="https://www.linkedin.com/in/liat-schlesinger-636a3267/" class="fa fa-linkedin w3-hover-opacity fa-lg"></a>
-        <a href="mailto:liat_schlesinger@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a>
+        <a href="mailto:liat_schlesinger@hks.harvard.edu" class="fa fa-envelope w3-hover-opacity fa-lg"></a></p>
       </div>
     </div>
   </div>
-</div>
-</div>
+  </div>
 </div>
 
 <!-- End Page Content -->

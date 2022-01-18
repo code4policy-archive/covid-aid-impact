@@ -35,6 +35,16 @@ var legend = d3.legendColor(['#66bd63'])
 svg.select(".legendThreshold")
     .call(legend);
 
+// Set tooltips
+var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+            return "<strong>" + d.properties.name + "</strong>" + "<br></span>"+ "% change in aid projects from 2018-19 to 2020: <span class='details'>" + d.change_from_average +"<br></span>";
+            })
+
+svg.call(tip)
+
 // Load external data and boot
 d3.queue()
     .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
@@ -51,11 +61,35 @@ function ready(error, topo) {
         .data(topo.features)
         .enter().append("path")
             .attr("fill", function (d){
+
                 // Pull data for this country
                 d.change_from_average = data.get(d.id) || "Not Available";
+
                 // Set the color
                 return colorScale(d.change_from_average);
             })
-            .attr("d", path);
+            .attr("d", path)
+            .on('mouseover', function(d) {
+                // console.log("!!!!!!", d)
+       tip.show(d)
+      d3.select(this)
+        .style('fill-opacity', 1)
+        .style('stroke-opacity', 1)
+        .style('stroke-width', 2)
+    })
+    .on('mouseout', function(d) {
+      tip.hide(d)
+      d3.select(this)
+        .style('fill-opacity', 0.8)
+        .style('stroke-opacity', 0.5)
+        .style('stroke-width', 1) 
+    })
+      svg
+    .append('path')
+    .attr('class', 'names')
+    .attr('d', path)
+
 }
+
+
 
