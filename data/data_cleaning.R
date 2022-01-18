@@ -6,6 +6,7 @@ library(data.table)
 #Loading datasets
 df <- read_csv("~/Documents/Harvard/January 2022/DPI 691M/Project/Analysis/iati_activity_data.csv")
 curr_df <- read_csv("~/Development/covid-aid-impact/data/FRB_H10.csv")
+sec_df <- read_csv("~/Development/covid-aid-impact/data/iati_sectoral_bucketing.csv")
 
 #Data cleaning tasks for IATI activity dataset
 
@@ -34,7 +35,9 @@ curr_df <- read_csv("~/Development/covid-aid-impact/data/FRB_H10.csv")
   #removing observations which are non-sensical or not easy to evaluate
   df <- df%>%
     filter(`year-start` != 2050 & is.na(`year-start`) != TRUE)%>%
-    filter(is.na(currency) != TRUE & currency != "!Mixed currency")
+    filter(is.na(currency) != TRUE & currency != "!Mixed currency")%>%
+    filter(is.na(`participating-org (Funding)`) != TRUE & `participating-org (Funding)` != "-")%>%
+    filter(`year-start` != 2021)
     
 
 #Data transformation
@@ -49,8 +52,16 @@ curr_df <- read_csv("~/Development/covid-aid-impact/data/FRB_H10.csv")
   
   #Standardizing the currency across all activities by converting local currencies to USD
   df <- df%>%mutate(`total-Disbursement-usd` = round(as.numeric(`total-Disbursement`)*value,2))
+  
+  # Creating broad buckets for sectors
+  sec_df <- sec_df%>%rename(sectoral_bucket = `sectoral bucket`)
+  
+  df <- df%>%
+    left_join(sec_df, by = "sector")%>%
+    mutate(sectoral_bucket = if_else(is.na(sectoral_bucket) == TRUE,"Not specified",sectoral_bucket))
 
-fwrite(df, file = "df_tab_viz.csv")
+
+fwrite(df, file = "~/Development/covid-aid-impact/data/df_tab_viz.csv")
 
 
 
